@@ -7,6 +7,7 @@ import GoogleLogin from './pages/googleLogin.jsx';
 //import Dashboard from './Dashboard';
 import {AuthProvider} from './pages/AuthContext.jsx';
 import './App.css'
+import Board from './pages/Board.jsx';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/board" element={<Board />} />
             <Route path="/google-login" element={<GoogleLogin />} />
           </Routes>
       </AuthProvider>
