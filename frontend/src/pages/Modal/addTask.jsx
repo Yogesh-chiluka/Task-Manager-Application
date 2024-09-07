@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 const Modal = ({ show, onClose, onAddTask }) => {
-    const [task, setTask] = useState('');
+    const [task, setTask] = useState( {
+        title:'', 
+        description:''} );
   
-    const handleAddTask = () => {
+    const handleAddTask = (e) => {
       onAddTask(task);
-      setTask('');
+      const { name , value } = e.target;
+      setTask({...task, [name]: value});
       onClose();
     };
   
@@ -18,7 +21,14 @@ const Modal = ({ show, onClose, onAddTask }) => {
           <h2 className="text-xl mb-4">Add New Task</h2>
           <input
             type="text"
-            value={task}
+            value={task.title}
+            onChange={(e) => setTask(e.target.value)}
+            className="border p-2 mb-4 w-full"
+            placeholder="Enter task"
+          />
+          <input
+            type="text"
+            value={task.description}
             onChange={(e) => setTask(e.target.value)}
             className="border p-2 mb-4 w-full"
             placeholder="Enter task"
