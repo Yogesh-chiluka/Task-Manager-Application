@@ -1,22 +1,44 @@
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
+import express from 'express';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import connectDB from './db/database.connection.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: './.env' });
+
 const app = express();
 
-const port = 3000;
+app.use(cors({
+  origin: '*', // Adjust this as needed for security
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+
 // Configure session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'your_secret_key',
   resave: false,
   saveUninitialized: true,
 }));
- 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
- 
 
- 
-app.listen(port, () => {
-console.log(`Server running at${port}`);
-});
 
+
+import authRouter from './routes/auth.routes.js'
+
+//routes declaration
+app.use('/api/auth',authRouter);
+
+
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`Server is running at port: ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MONGO db connection failed !!!", err);
+  });
