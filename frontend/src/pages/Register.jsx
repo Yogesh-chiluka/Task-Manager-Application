@@ -21,11 +21,25 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {};
+    if(!formData.firstName) newErrors.firstName = 'First name is required';
+    if(!formData.lastName) newErrors.lastName = 'Last name is required';
+    if(!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'valid email is required';
+    if(!formData.password) newErrors.password = 'Password is required';
+    if(!formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Password must match';
+
+    return newErrors;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    register(name, email, password);  // Calls the register function from AuthContext
+    const validationErrors = validateForm();
+
+    if(Object.keys(validationErrors).length === 0){
+      console.log('Form Data Submitted', formData);
+    }
+    else{
+      setErrors(validationErrors);
+    }
   };
  
   return (
@@ -44,24 +58,28 @@ const Register = () => {
             </div>
             <div className='w-96 mx-auto mt-10'>
               <p className='text-2xl text-blue-600 py-4'>Signup</p>
-              <div className='border rounded border-solid border-2 border-sky-500 w-96 p-4 text-center'>
+              <div className='border rounded border-solid border-2 border-blue-500 w-96 p-4 text-center'>
               <form onSubmit={handleSubmit}>
                   <input 
-                  placeholder="Enter your email"
+                  placeholder="Enter your First Name" 
                   className='w-full border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-gray-100 my-2 py-2 px-4'
-                  type="email"
-                  value={email}
-                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  id='firstName'
+                  name='firstName'
+                  value={formData.firstName}
+                  onChange={handleChange}
                   required
                   />
                   <input 
-                  placeholder="Enter your email"
+                  placeholder="Enter your Last Name"
                   className='w-full border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-gray-100 my-2 py-2 px-4'
-                  type="email"
-                  value={email}
-                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  id='lastName'
+                  name='lastName'
+                  value={formData.lastName}
+                  onChange={handleChange}
                   required
                   />
 
@@ -70,8 +88,10 @@ const Register = () => {
                   className='w-full border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-gray-100 my-2 py-2 px-4'
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id='email'
+                  name='email'
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   />
                   
@@ -80,25 +100,41 @@ const Register = () => {
                   className='border w-full rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-gray-100 my-2 py-2 px-4 '
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-        
+                  id='password'
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
                   />
+
+                  <input
+                  placeholder="Enter your confirmPassword here" 
+                  className='border w-full rounded  outline-0 drop-shadow-sm border-gray-300
+                  bg-gray-100 my-2 py-2 px-4 '
+                  type="password"
+                  id='confirmPassword'
+                  name='confirmPassword'
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  />
+
                   <button 
                   className='w-full  border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-blue-600 my-2 py-2 px-4 text-gray-100 mt-4'
                   type="submit"
                   > Login </button>
-                  <p className=''>Don't have  an account? <a>Signup</a></p>
+                  </form>
+                  <p className=''>Already have an account? <Link to="/"><span className='text-blue-600'>Login</span></Link></p>
               
                   <button 
                   className='w-3/6 mx-auto border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-blue-600 my-2 py-2 px-4  text-gray-100 mt-4 '
                   onClick={googleLogin}
                   type="submit"
-                  > Login with Google </button>
+                  >Signup with Google </button>
         
-            </form>
+            
             </div>
           </div>
         </div>
