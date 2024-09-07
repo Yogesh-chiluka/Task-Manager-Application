@@ -52,8 +52,8 @@ const Register = () => {
                 </div>
                 <div className='bg-gray-800'></div>
                 <div className='flex justify-end'>
-                    <button className='border rounded border-transparent mr-2 ml-2 my-2 px-4 py-2 bg-white flex text-blueBar'>Login </button>
-                    <Link to="/register"><button className='border rounded border-transparent text-white ml-2 mr-7 my-2 px-4 py-2'>SignUp</button></Link>
+                <Link to="/"><button  className='border rounded border-transparent text-white ml-2 mr-7 my-2 px-4 py-2'>Login </button></Link>
+                    <button className='border rounded border-transparent mr-2 ml-2 my-2 px-4 py-2 bg-white flex text-blueBar'>SignUp</button>
                 </div>
             </div>
             <div className='w-96 mx-auto mt-10'>

@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal/addTask.jsx';
+import Task from './Components/Task.jsx';
 
 const Board = () => {
   const [columns, setColumns] = useState({
-    column1: { name: 'To Do', items: ['item1', 'item2'] },
-    column2: { name: 'In Progress', items: ['item3', 'item4'] },
-    column3: { name: 'Done', items: ['item5', 'item6'] },
+    column1: { name: 'To Do', items: [
+      { title: 'Task 1', description: 'Nulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occaecatNulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occa', timestamp: new Date().toLocaleString() },
+      { title: 'Task 2', description: 'Description 2', timestamp: new Date().toLocaleString() }
+    ]},
+    column2: { name: 'In Progress', items: [
+      { title: 'Task 3', description: 'Description 3', timestamp: new Date().toLocaleString() },
+      { title: 'Task 4', description: 'Description 4', timestamp: new Date().toLocaleString() }
+    ]},
+    column3: { name: 'Done', items: [
+      { title: 'Task 5', description: 'Description 5', timestamp: new Date().toLocaleString() },
+      { title: 'Task 6', description: 'Description 6', timestamp: new Date().toLocaleString() }
+    ]},
   });
-  const [showModal, setShowModal] = useState(false);
+  const [showModalAddTask, setshowModalAddTask] = useState(false);
 
   const onDrop = (event, toColumn) => {
-    const item = event.dataTransfer.getData('item');
+    const item = JSON.parse(event.dataTransfer.getData('item'));
     const fromColumn = event.dataTransfer.getData('fromColumn');
 
     if (toColumn === fromColumn) return;
 
     setColumns((prev) => {
-      const fromData = prev[fromColumn].items.filter((order) => order !== item);
+      const fromData = prev[fromColumn].items.filter((order) => order.title !== item.title);
       const toData = [...prev[toColumn].items, item];
 
       return {
@@ -31,24 +41,30 @@ const Board = () => {
   const onDragOver = (event) => event.preventDefault();
 
   const onDragStart = (event, item, fromColumn) => {
-    event.dataTransfer.setData('item', item);
+    event.dataTransfer.setData('item', JSON.stringify(item));
     event.dataTransfer.setData('fromColumn', fromColumn);
   };
 
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const handleOpenModalAddTask = () => {
+    setshowModalAddTask(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseModalAddTask = () => {
+    setshowModalAddTask(false);
   };
 
   const handleAddTask = (task) => {
+    const newTask = {
+      title: task.title,
+      description: task.description,
+      timestamp: new Date().toLocaleString(),
+    };
+
     setColumns((prev) => ({
       ...prev,
       column1: {
         ...prev.column1,
-        items: [...prev.column1.items, task],
+        items: [...prev.column1.items, newTask],
       },
     }));
   };
@@ -66,16 +82,19 @@ const Board = () => {
           <Link to="/register"><button className='border rounded border-transparent text-white ml-2 mr-7 my-2 px-4 py-2'>SignUp</button></Link>
         </div>
       </div>
-      {/* Top blue bar with logout button on right */}
+
+
+      {/* Add Taks button */}
       <div className='m-4'>
         <button
-          onClick={handleOpenModal}
+          onClick={handleOpenModalAddTask}
           className="text-white text-center mx-auto border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-2 px-4"
         >
           Add Task
         </button>
 
-        <div className="bg-white grid grid-cols-3 gap-2">
+        <div className="bg-white grid grid-row-3 md:grid-cols-3 gap-2">
+            {/* Three Columns */}
           {Object.keys(columns).map((column) => (
             <div
               key={column}
@@ -85,23 +104,18 @@ const Board = () => {
             >
               <h2 className="text-white text-center mb-4 mx-auto border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-blueBar  py-2 px-4">{columns[column].name}</h2>
+                   {/* Tasks in each */}
               {columns[column].items.map((item) => (
-                <div
-                  draggable
-                  onDragStart={(event) => onDragStart(event, item, column)}
-                  key={item}
-                  className="w-full h-40 mb-2 text-white mx-auto border rounded outline-0 drop-shadow-sm bg-blueCard py-2 px-4"
-                >
-                  {item}
-                </div>
+                <Task item ={item} onDragStart={onDragStart} column={column}  />
               ))}
             </div>
           ))}
         </div>
-        <Modal show={showModal} onClose={handleCloseModal} onAddTask={handleAddTask} />
+        <Modal show={showModalAddTask} onClose={handleCloseModalAddTask} onAddTask={handleAddTask} />
       </div>
     </div>
   );
 };
+
 
 export default Board;
