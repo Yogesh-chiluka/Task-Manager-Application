@@ -1,27 +1,30 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from "mongoose";
+import bcrypt from 'bcryptjs';
+
  
 const userSchema = new mongoose.Schema(
     {
-        googleId: String,
-        email: { 
-            type: String, 
-            unique: true,
-            required: true,
-            lowercase: true,
-        },
-        password: {
-            type:String,
-            required:[true,'Password is required']
-        },
         name: {
             type: String,
             required: true,
             unique: true,
             lowercase: true,
         },
-    }
-);
+        email: { 
+          type: String, 
+          unique: true,
+          required: true,
+          lowercase: true,
+        },
+        password: {
+          type:String,
+        },
+        googleId:{ type: String},
+        picture: { type: String},
+    },
+    {
+      timestamps:true
+});
  
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
