@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "google-auth-library": "^9.14.1",
+    "tailwindcss": "^3.4.10"
+  }
+}
