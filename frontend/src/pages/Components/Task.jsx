@@ -1,9 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
-import { viewTaskOpen, editTaskOpen} from '../../Features/TaskManagement/AddViewUpdateTask.jsx'
 
 const Task = ({ item, onDragStart, column }) => {
-  const dispatch = useDispatch()
   return (
     <div
       draggable
@@ -22,20 +19,20 @@ const Task = ({ item, onDragStart, column }) => {
         </button>
 
         <button
-          onClick={() => dispatch(editTaskOpen())}
-          className="text-white text-center border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-1 px-2 text-sm m-2"
+
+          className="text-white text-center  border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-1 px-2 text-sm m-2"
         >
           Edit
         </button>
 
         <button
-          onClick={() => dispatch(viewTaskOpen())}
+
           className="text-white text-center border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-1 px-2 text-sm m-2"
         >
           View Details
         </button>
       </div>
-     
+      
     </div>
   );
 };

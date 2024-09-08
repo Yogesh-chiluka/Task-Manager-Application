@@ -123,7 +123,7 @@ const Register = () => {
                   className='w-full  border rounded  outline-0 drop-shadow-sm border-gray-300
                   bg-blueBar my-2 py-2 px-4 text-gray-100 mt-4'
                   type="submit"
-                  > Signup </button>
+                  > Login </button>
                   </form>
                   <p className=''>Already have an account? <Link to="/"><span className='text-blueBar'>Login</span></Link></p>
               
