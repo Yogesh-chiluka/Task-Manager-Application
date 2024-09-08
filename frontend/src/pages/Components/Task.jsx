@@ -2,8 +2,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import { viewTaskOpen, editTaskOpen} from '../../Features/TaskManagement/AddViewUpdateTask.jsx'
 
-const Task = ({ item, onDragStart, column }) => {
-  const dispatch = useDispatch()
+const Task = ({ item, onDragStart, column, onDeleteTask }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteTask = (e) => {
+    onDeleteTask(item,column);
+  };
+
   return (
     <div
       draggable
@@ -16,6 +21,7 @@ const Task = ({ item, onDragStart, column }) => {
       <small className=' bottom-0 left-0 '>{item.timestamp}</small>
       <div className='absolute bottom-0 right-0 justify-around'>
       <button
+          onClick={handleDeleteTask}
           className="text-white text-center  border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-1 px-2 text-sm m-2"
         >
           Delete

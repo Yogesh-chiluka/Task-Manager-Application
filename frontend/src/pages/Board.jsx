@@ -74,6 +74,16 @@ const Board = () => {
     }));
   };
 
+  const handleDeleteTask = ( item,selectedColumn) => {
+    setColumns((prev) => ({
+      ...prev,
+      [selectedColumn]: {
+        ...prev[selectedColumn],
+        items: [...prev[selectedColumn].items.filter((order) => order !== item)],
+      },
+    }));
+  };
+
 
 
   return (
@@ -114,7 +124,7 @@ const Board = () => {
                   bg-blueBar  py-2 px-4">{columns[column].name}</h2>
                    {/* Tasks in each */}
               {columns[column].items.map((item) => (
-                <Task item ={item} onDragStart={onDragStart} column={column}  />
+                <Task item ={item} onDeleteTask = {handleDeleteTask} onDragStart={onDragStart} column={column}  />
               ))}
             </div>
           ))}

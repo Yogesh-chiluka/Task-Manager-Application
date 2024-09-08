@@ -15,7 +15,7 @@ const Modal = ({onAddTask}) => {
       onAddTask(task);
       const { name , value } = e.target;
       setTask({...task, [name]: value});
-      onClose();
+      dispatch(addTaskClose());
     };
   
     if (!isAddModalOpen) {
