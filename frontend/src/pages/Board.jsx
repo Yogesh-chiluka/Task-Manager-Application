@@ -95,8 +95,8 @@ const Board = () => {
         </div>
         <div className='bg-gray-800'></div>
         <div className='flex justify-end'>
-          <button className='border rounded border-transparent mr-2 ml-2 my-2 px-4 py-2 bg-white flex text-blueBar'>Login </button>
-          <Link to="/register"><button className='border rounded border-transparent text-white ml-2 mr-7 my-2 px-4 py-2'>SignUp</button></Link>
+         <Link to="/logout"><button className='border rounded border-transparent mr-2 ml-2 my-2 px-4 py-2 bg-delete flex text-white'>Logout </button></Link>
+         
         </div>
       </div>
 

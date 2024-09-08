@@ -11,7 +11,7 @@ export default {
         cardHeader: '#3a98FB',
         delete:'#FF575E',
         edit:'#3898FB',
-        details:'#',
+        details:'#0275FE',
         // Add more custom colors here
       },
     },

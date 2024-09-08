@@ -7,6 +7,8 @@ const Modal = ({onAddTask}) => {
   const isAddModalOpen = useSelector(state => state.modal.add);
   const dispatch = useDispatch()
 
+ 
+
     const [task, setTask] = useState( {
         title:'', 
         description:''} );
@@ -19,7 +21,10 @@ const Modal = ({onAddTask}) => {
     };
   
     if (!isAddModalOpen) {
+      document.body.style.overflow = 'unset';
       return null;
+    }else{
+        document.body.style.overflow = 'hidden';
     }
   
     return (

@@ -6,9 +6,12 @@ const Modal = () => {
   const isAddModalOpen = useSelector(state => state.modal.view);
   const dispatch = useDispatch()
 
-    if (!isAddModalOpen) {
-      return null;
-    }
+  if (!isAddModalOpen) {
+    document.body.style.overflow = 'unset';
+    return null;
+  }else{
+      document.body.style.overflow = 'hidden';
+  }
   
     return (
       <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
