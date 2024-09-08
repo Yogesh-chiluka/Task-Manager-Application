@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from './Modal/addTask.jsx';
+import AddTask from './Modal/addTask.jsx';
 import Task from './Components/Task.jsx';
+import ViewTask from './Modal/viewTask.jsx';
+import EditTask from './Modal/editTask.jsx'
+import { useDispatch } from 'react-redux'
+import { addTaskOpen} from '../Features/TaskManagement/AddViewUpdateTask.jsx'
+
+let todoItems = [
+  { title: 'Task 1', description: 'Nulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occaecatNulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occa', timestamp: new Date().toLocaleString() },
+  { title: 'Task 2', description: 'Description 2', timestamp: new Date().toLocaleString() }
+]
+
+let inProgressItems = [
+  { title: 'Task 3', description: 'Description 3', timestamp: new Date().toLocaleString() },
+  { title: 'Task 4', description: 'Description 4', timestamp: new Date().toLocaleString() }
+]
+
+let doneItems =[
+  { title: 'Task 5', description: 'Description 5', timestamp: new Date().toLocaleString() },
+  { title: 'Task 6', description: 'Description 6', timestamp: new Date().toLocaleString() }
+]
 
 const Board = () => {
+  const dispatch = useDispatch()
+
   const [columns, setColumns] = useState({
-    column1: { name: 'To Do', items: [
-      { title: 'Task 1', description: 'Nulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occaecatNulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occa', timestamp: new Date().toLocaleString() },
-      { title: 'Task 2', description: 'Description 2', timestamp: new Date().toLocaleString() }
-    ]},
-    column2: { name: 'In Progress', items: [
-      { title: 'Task 3', description: 'Description 3', timestamp: new Date().toLocaleString() },
-      { title: 'Task 4', description: 'Description 4', timestamp: new Date().toLocaleString() }
-    ]},
-    column3: { name: 'Done', items: [
-      { title: 'Task 5', description: 'Description 5', timestamp: new Date().toLocaleString() },
-      { title: 'Task 6', description: 'Description 6', timestamp: new Date().toLocaleString() }
-    ]},
+    column1: { name: 'To Do', items: todoItems},
+    column2: { name: 'In Progress', items: inProgressItems},
+    column3: { name: 'Done', items: doneItems },
   });
-  const [showModalAddTask, setshowModalAddTask] = useState(false);
+  
 
   const onDrop = (event, toColumn) => {
     const item = JSON.parse(event.dataTransfer.getData('item'));
@@ -45,14 +57,7 @@ const Board = () => {
     event.dataTransfer.setData('fromColumn', fromColumn);
   };
 
-  const handleOpenModalAddTask = () => {
-    setshowModalAddTask(true);
-  };
-
-  const handleCloseModalAddTask = () => {
-    setshowModalAddTask(false);
-  };
-
+  
   const handleAddTask = (task) => {
     const newTask = {
       title: task.title,
@@ -68,6 +73,8 @@ const Board = () => {
       },
     }));
   };
+
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -87,7 +94,8 @@ const Board = () => {
       {/* Add Taks button */}
       <div className='m-4'>
         <button
-          onClick={handleOpenModalAddTask}
+          onClick={() => dispatch(addTaskOpen())}
+          name='add'
           className="text-white text-center mx-auto border rounded outline-0 drop-shadow-sm border-gray-300 bg-blueBar py-2 px-4"
         >
           Add Task
@@ -111,7 +119,10 @@ const Board = () => {
             </div>
           ))}
         </div>
-        <Modal show={showModalAddTask} onClose={handleCloseModalAddTask} onAddTask={handleAddTask} />
+        <AddTask onAddTask={handleAddTask}/>
+        <ViewTask />
+        <EditTask />
+       
       </div>
     </div>
   );
@@ -119,3 +130,6 @@ const Board = () => {
 
 
 export default Board;
+
+// 
+// 
