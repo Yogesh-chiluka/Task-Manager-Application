@@ -38,19 +38,21 @@ const Modal = ({onAddTask}) => {
             className="border p-2 mb-4 w-full"
             placeholder="Enter task"
           />
-          <input
-            type="text"
+
+          <textarea rows="4"
             value={task.description}
             onChange={(e) => setTask(e.target.value)}
             className="border p-2 mb-4 w-full"
-            placeholder="Enter task"
+            placeholder="Enter description"
           />
+          <div className='flex justify-end '>
           <button onClick={handleAddTask} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
             Add Task
           </button>
-          <button onClick={() => dispatch(addTaskClose())} className="bg-gray-500 text-white px-4 py-2 rounded">
+          <button onClick={() => dispatch(addTaskClose())} className="bg-delete text-white px-4 py-2 rounded">
             Cancel
           </button>
+          </div>
         </div>
       </div>
     );
