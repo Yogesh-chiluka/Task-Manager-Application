@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-const Modal = ({ show, onClose, onAddTask }) => {
+import { useSelector, useDispatch } from 'react-redux'
+import { addTaskClose, editTaskClose } from '../../Features/TaskManagement/AddViewUpdateTask.jsx'
+
+
+const Modal = ({onAddTask}) => {
+  const isAddModalOpen = useSelector(state => state.modal.add);
+  const dispatch = useDispatch()
+
     const [task, setTask] = useState( {
         title:'', 
         description:''} );
@@ -11,7 +18,7 @@ const Modal = ({ show, onClose, onAddTask }) => {
       onClose();
     };
   
-    if (!show) {
+    if (!isAddModalOpen) {
       return null;
     }
   
@@ -36,7 +43,7 @@ const Modal = ({ show, onClose, onAddTask }) => {
           <button onClick={handleAddTask} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
             Add Task
           </button>
-          <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">
+          <button onClick={() => dispatch(addTaskClose())} className="bg-gray-500 text-white px-4 py-2 rounded">
             Cancel
           </button>
         </div>
