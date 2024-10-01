@@ -1,10 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "main": "src/server.js",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +20,6 @@
     "express-session": "^1.18.0",
     "google-auth-library": "^9.14.1",
     "mongoose": "^8.6.1",
-    "parser": "^0.1.4",
-    "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
+    "nodemon": "^3.1.4"
   }
 }

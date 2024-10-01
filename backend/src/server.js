@@ -4,13 +4,14 @@ import bodyParser from 'body-parser';
 import connectDB from './db/database.connection.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { ApiResponse } from './utils/ApiResponse.js';
 
 dotenv.config({ path: './.env' });
 
 const app = express();
 
 app.use(cors({
-  origin: '*', // Adjust this as needed for security
+  origin: process.env.CORS_ORIGIN, // Adjust this as needed for security
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
@@ -27,11 +28,22 @@ app.use(bodyParser.json());
 
 
 
+
+
 import authRouter from './routes/auth.routes.js'
+import taskRouter from './routes/task.routes.js'
 
 //routes declaration
 app.use('/api/auth',authRouter);
+app.use('/api',taskRouter);
 
+
+app.get('/api', (req, res) => {
+   res.status(200).json(
+    new ApiResponse(200,"OK")
+)
+});
+ 
 
 connectDB()
   .then(() => {

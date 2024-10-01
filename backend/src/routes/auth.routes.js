@@ -1,6 +1,5 @@
 import { Router } from "express";
 const router = Router();
-import passport from 'passport';
 import { userRegistration, userLogin, googleLogin, userLogout} from "../controllers/auth.controller.js";
 
 router.route("/register", userRegistration).post();
